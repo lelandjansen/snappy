@@ -184,7 +184,7 @@ check_symbol_exists("sysconf" "unistd.h" HAVE_FUNC_SYSCONF)
 
 configure_file(
   "cmake/config.h.in"
-  "${PROJECT_BINARY_DIR}/config.h"
+  "${PROJECT_BINARY_DIR}/cmake-config.h"
 )
 
 # We don't want to define HAVE_ macros in public headers. Instead, we use
@@ -216,13 +216,14 @@ configure_file(
 add_library(snappy "")
 target_sources(snappy
   PRIVATE
+    "config.h"
     "snappy-internal.h"
     "snappy-stubs-internal.h"
     "snappy-c.cc"
     "snappy-sinksource.cc"
     "snappy-stubs-internal.cc"
     "snappy.cc"
-    "${PROJECT_BINARY_DIR}/config.h"
+    "${PROJECT_BINARY_DIR}/cmake-config.h"
 
   # Only CMake 3.3+ supports PUBLIC sources in targets exported by "install".
   $<$<VERSION_GREATER:CMAKE_VERSION,3.2>:PUBLIC>
